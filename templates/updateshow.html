@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %} Home{% endblock title %} 
+{% block body %}
+<div class="container my-4 col-md-6">
+    <h2>Update Show</h2>
+    <form action="/updateshow/{{show.ShowID}}" method="POST">
+      <div class="mb-3">
+        <label for="showid" class="form-label">Show ID</label>
+        <input type="text" class="form-control" name="showid" id="showid" aria-describedby="emailHelp"  value="{{show.ShowID}}">
+      </div>
+      <div class="mb-3">
+        <label for="showname" class="form-label">Show Name</label>
+        <input type="text" class="form-control" name="showname" id="showname"  value="{{show.ShowName}}">
+      </div>
+      <div class="mb-3">
+        <label for="showrating" class="form-label">Show Rating</label>
+        <input type="text" class="form-control" name="showrating" id="showrating"  value="{{show.ShowRating}}">
+      </div>
+      <div class="mb-3">
+        <label for="showtag" class="form-label">Show Tag</label>
+        <input type="text" class="form-control" name="showtag" id="showtag"  value="{{show.ShowTag}}">
+      </div>
+      <div class="mb-3">
+        <label for="showlanguage" class="form-label">Show Language</label>
+        <input type="text" class="form-control" name="showlanguage" id="showlanguage"  value="{{show.ShowLanguage}}">
+      </div>
+      <div class="mb-3">
+        <label for="showtime" class="form-label">Show Time</label>
+        <input type="text" class="form-control" name="showtime" id="showtime"  value="{{show.ShowTime}}">
+      </div>
+      <div class="mb-3">
+        <label for="showprice" class="form-label"> Show Price</label>
+        <input type="text" class="form-control" name="showprice" id="showprice"  value="{{show.ShowPrice}}">
+      </div>
+      <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+  </div>  
+
+{% endblock body %}

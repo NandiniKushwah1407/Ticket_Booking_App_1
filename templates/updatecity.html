@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %} Home{% endblock title %} 
+{% block body %}
+<div class="container my-4 col-md-6">
+    <h2>Update City</h2>
+    <form action="/updatecity/{{city.CityName}}" method="POST">
+      <div class="mb-3">
+        <label for="statename" class="form-label">State Name</label>
+        <input type="text" class="form-control" name="statename" id="statename" aria-describedby="emailHelp" value="{{city.StateName}}">
+      </div>
+      <div class="mb-3">
+        <label for="cityname" class="form-label">City Name</label>
+        <input type="text" class="form-control" name="cityname" id="cityname" value="{{city.CityName}}">
+      </div>
+      <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+  </div>
+{% endblock body %}
+

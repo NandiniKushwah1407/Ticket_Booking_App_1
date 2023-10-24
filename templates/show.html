@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block title %} Home{% endblock title %}
+{% block body %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<div class="container">
+  <div class="row">
+    <div class="col-3 my-4">
+      <h2>Add a Show</h2>
+      <form action="{{url_for('show', VenueID=VenueID)}}" method="POST">
+        <div class="mb-3">
+          <label for="venueid" class="form-label">Venue ID</label>
+          <input type="text" class="form-control" name="venueid" id="venueid" value="{{VenueID}}" aria-label="readonly input example" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="showid" class="form-label">Show ID</label>
+          <input type="text" class="form-control" name="showid" id="showid">
+        </div>
+        <div class="mb-3">
+          <label for="showname" class="form-label">Show Name</label>
+          <input type="text" class="form-control" name="showname" id="showname">
+        </div>
+        <div class="mb-3">
+          <label for="showrating" class="form-label">Show Rating</label>
+          <input type="text" class="form-control" name="showrating" id="showrating">
+        </div>
+        <div class="mb-3">
+          <label for="showtag" class="form-label">Show Tag</label>
+          <input type="text" class="form-control" name="showtag" id="showtag">
+        </div>
+        <div class="mb-3">
+          <label for="showlanguage" class="form-label">Show Language</label>
+          <input type="text" class="form-control" name="showlanguage" id="showlanguage">
+        </div>
+        <div class="mb-3">
+          <label for="showtime" class="form-label">Show Time</label>
+          <input type="text" class="form-control" name="showtime" id="showtime">
+        </div>
+        <div class="mb-3">
+          <label for="showprice" class="form-label"> Show Price</label>
+          <input type="text" class="form-control" name="showprice" id="showprice">
+        </div>
+        <button type="submit" class="btn btn-dark">Submit</button>
+      </form>
+    </div>
+
+    <div class="col-9 my-4">
+      <h4>{{VenueName}}</h4>
+      {% if allShow|length == 0 %}
+      <div class="alert alert-dark" role="alert">
+        No Show found. Add first Show now!
+      </div>
+      {% else %}
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{message}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">SNo</th>
+            <th scope="col">Show ID</th>
+            <th scope="col">Show Name</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Tag</th>
+            <th scope="col">Language</th>
+            <th scope="col">Time</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for show in allShow %}
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{show.ShowID}}</td>
+            <td>{{show.ShowName}}</td>
+            <td>{{show.ShowRating}}</td>
+            <td>{{show.ShowTag}}</td>
+            <td>{{show.ShowLanguage}}</td>
+            <td>{{show.ShowTime}}</td>
+            <td>{{show.ShowPrice}}</td>
+            <td>
+              <a href="/updateshow/{{show.ShowID}}" type="button" class="btn btn-success btn-sm mx-1"><img src="/static/images/edit2.png" alt="Update" width="20px"></button>
+                <a href="/deleteshow/{{show.ShowID}}" type="button" class="btn btn-danger btn-sm mx-1"><img src="/static/images/recycle-bin.png" alt="Delete" width="20px"></button>
+                  <a href="/seating/{{show.ShowID}}/{{user.UserName}}" type="button" class="btn btn-warning btn-sm mx-1">Seats</button>
+            </td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock body %}

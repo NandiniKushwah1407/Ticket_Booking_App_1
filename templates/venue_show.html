@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} Home{% endblock title %}
+{% block body %}
+<br>
+<div class="container my-2" style="text-align: center;">
+  <h1>Welcome to {{venue.VenueName}} !!</h1>
+</div>
+
+<div class="container my-4" style="text-align: center; display: flex;">
+  {% for s in show%}
+    <div class="col" style="margin: 20px;">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">{{s.ShowName}}</h3>
+          <p class="card-text">
+            <h6 class="my-2">Ticket Price: ₹ {{s.ShowPrice}}</h6>
+            <h6 class="my-2">Language: {{s.ShowLanguage}}</h6>
+            <h6 class="my-2">Time: {{s.ShowTime}}</h6>
+            <h6>Rating: {{s.ShowRating}} <img src="/static/images/star.png" alt="star" style="height: 20px; width: 20px;"></h6>
+          </p>
+          <a href="/seating/{{s.ShowID}}/{{user.UserName}}" class="btn btn-warning">Book Ticket</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock body %}

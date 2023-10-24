@@ -1,0 +1,28 @@
+  .star{
+    width: 520px;
+    text-align: center;
+  }
+  .star input{
+    display: none;
+  }
+  .star label{
+    float: right;
+    font-size: 50px;
+    color: lightgray;
+    margin: 0 5px;
+    text-shadow: 1px 1px #bbb;
+  }
+  .star label:before{
+    content: "★";
+  }
+  .star input:checked ~ label{
+    color: gold;
+    text-shadow: 1px 1px #c60;
+  }
+  .star:not(:checked)> label:hover, .star:not(:checked)> label:hover ~ label{
+    color: gold;
+  }
+  .star input:checked > label:hover, .star input:checked > label:hover ~ label {
+    color: gold;
+    text-shadow: 1px 1px goldenrod ;
+  }

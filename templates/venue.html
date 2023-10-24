@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %} Home{% endblock title %}
+{% block body %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<div class="container">
+  <div class="row">
+    <div class="col-3 my-4">
+      <h2>Add a Venue</h2>
+      <form action="{{url_for('venue', CityName=CityName)}}" method="POST">
+        <div class="mb-3">
+          <label for="cityname" class="form-label">City</label>
+          <input type="text" class="form-control" name="cityname" id="cityname" aria-describedby="emailHelp"
+            value="{{CityName}}" aria-label="readonly input example" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="venueid" class="form-label">Venue ID</label>
+          <input type="text" class="form-control" name="venueid" id="venueid" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+          <label for="venuename" class="form-label">Venue Name</label>
+          <input type="text" class="form-control" name="venuename" id="venuename" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+          <label for="venueplace" class="form-label">Address</label>
+          <input type="text" class="form-control" name="venueplace" id="venueplace">
+        </div>
+        <div class="mb-3">
+          <label for="venuecapacity" class="form-label">Capacity</label>
+          <input type="text" class="form-control" name="venuecapacity" id="venuecapacity">
+        </div>
+        <button type="submit" class="btn btn-dark">Submit</button>
+      </form>
+    </div>
+
+    <div class="col-9 my-4">
+      <h4>{{CityName}}</h4>
+      {% if CityVenue|length == 0 %}
+      <div class="alert alert-dark" role="alert">
+        No Venue found. Add your first Venue now!
+      </div>
+      {% else %}
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{message}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">SNo</th>
+            <th scope="col">Venue ID</th>
+            <th scope="col">Venue Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Capacity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for venue in CityVenue %}
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{venue.VenueID}}</td>
+            <td>{{venue.VenueName}}</td>
+            <td>{{venue.VenuePlace}}</td>
+            <td>{{venue.VenueCapacity}}</td>
+            <td>
+              <a href="/updatevenue/{{venue.VenueID}}" type="button" class="btn btn-success btn-sm mx-1"><img
+                  src="/static/images/edit2.png" alt="Update" width="20px"></button>
+                <a href="/deletevenue/{{venue.VenueID}}" type="button" class="btn btn-danger btn-sm mx-1"><img
+                    src="/static/images/recycle-bin.png" alt="Delete" width="20px"></button>
+                  <a href="/show/{{venue.VenueID}}" type="button" class="btn btn-warning btn-sm mx-1">Add show</button>
+            </td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock body %}

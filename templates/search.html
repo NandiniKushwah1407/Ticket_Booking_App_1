@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} Home{% endblock title %}
+{% block body %}
+<h1 class="my-4" style="text-align: center;">Your Searches</h1>
+<div class="container my-4" style="text-align: center;">
+    <table class="table table-dark table-striped">
+    {% for i in search %}
+    {% if i.ShowID %}
+    <tr>
+    <td>{{i.ShowName}}</td> 
+    <td><a class="btn btn-warning" href="/seating/{{i.ShowID}}/{{user.UserName}}" role="button">Click Here</a></td>
+    </tr>
+    {% else %}
+    <tr>
+    <td>{{i.VenueName}}</td>
+    <td><a class="btn btn-warning" href="/venueshow/{{user.UserName}}/{{i.VenueID}}" role="button">Click Here</a></td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+    </table>
+</div>
+
+
+{% endblock body %}

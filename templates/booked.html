@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %} Home{% endblock title %}
+{% block body %}
+<div class="container my-4" style="text-align: center; font-size: large;">
+  <img src="/static/images/congrats.png" alt="congrats" style="width: 200px;">
+  <h1 style="color: #ffc107;">{{user.UserName}} !!</h1>
+  <h3 style="font-weight: bolder;">Your Ticket are Booked</h3>
+</div>
+<div class="container">
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{message}}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+</div>
+<div class="col" style="margin: 20px; text-align: center; padding-left: 300px; padding-right: 300px;">
+  <div class="card">
+    <div class="card-body" style="border: 3px solid #000; border-radius: 10px; ">
+      <h3 class="card-title" style="font-weight: bold;">Your Ticket</h3>
+      <p class="card-text">
+      <h6 class="my-2">Show: {{show.ShowName}}</h6>
+      <h6 class="my-2">Name: {{user.UserName}}</h6>
+      <h6 class="my-2">Venue: {{venue.VenueName}}, {{venue.VenuePlace}}, {{venue.CityName}}</h6>
+      <h6 class="my-2">Language: {{show.ShowLanguage}}</h6>
+      <h6 class="my-2">Time: {{show.ShowTime}}</h6>
+      <h6 class="my-2">Total: ₹ {{show.ShowPrice*d|length}}</h6>
+      </p>
+
+      <h3>Rate Now</h3>
+      <div>
+        <form action="/rate/{{show.ShowID}}/{{user.UserName}}/{{d}}" , method="POST">
+          <div style="display: flex; text-align: center;">
+            <div class="star">
+              <input type="radio" id="five" name="rate" value="5">
+              <label for="five"></label>
+              <input type="radio" id="four" name="rate" value="4">
+              <label for="four"></label>
+              <input type="radio" id="three" name="rate" value="3">
+              <label for="three"></label>
+              <input type="radio" id="two" name="rate" value="2">
+              <label for="two"></label>
+              <input type="radio" id="one" name="rate" value="1">
+              <label for="one"></label>
+            </div>
+          </div>
+          <div>
+            <input type="submit" title="Click to book"
+              style="background-color: #ffc107; border: none; border-radius: 5px;">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock body %}
